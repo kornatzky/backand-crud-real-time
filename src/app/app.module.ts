@@ -8,6 +8,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { CardPage } from '../pages/card/card';
 
 import { GoogleMaps } from '../providers/google-maps';
+import { ConnectivityService } from '../providers/connectivity-service';
 
 import { BackandService } from '@backand/angular2-sdk';
 
@@ -30,6 +31,6 @@ import { BackandService } from '@backand/angular2-sdk';
     SignupPage,
     CardPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, GoogleMaps, BackandService]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, GoogleMaps, BackandService, ConnectivityService]
 })
 export class AppModule {}

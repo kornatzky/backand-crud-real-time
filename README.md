@@ -21,8 +21,26 @@ Now we can upload an image for the user, to replace his/her current upload pictu
 
 Continuously in background. Uploaded to server. 
 
-# Install App
+# Ionic Native Plugins
 
-## Install Geolocation Plugin
+## Geolocation Plugin
 
     ionic plugin add cordova-plugin-geolocation
+
+## Cordova Network Information Plugin
+
+    ionic plugin add cordova-plugin-network-information
+
+# References
+
+[Ionic 2: How to Use Google Maps & Geolocation](https://www.joshmorony.com/ionic-2-how-to-use-google-maps-geolocation-video-tutorial/)
+
+[Dynamically Loading Markers with MongoDB in Ionic 2 – Part 1](https://www.joshmorony.com/dynamically-loading-markers-with-mongodb-in-ionic-2-part-1/)
+
+[Dynamically Loading Markers with MongoDB in Ionic 2 – Part 2](https://www.joshmorony.com/dynamically-loading-markers-with-mongodb-in-ionic-2-part-2/)
+
+[Creating an Advanced Google Maps Component in Ionic 2](https://www.joshmorony.com/ionic-2-how-to-use-google-maps-geolocation-video-tutorial/)
+
+[Create Marker Clusters with Google Maps in Ionic 2](https://www.joshmorony.com/create-marker-clusters-with-google-maps-in-ionic-2/)
+
+[Adding Background Geolocation to an Ionic 2 Application](https://www.joshmorony.com/adding-background-geolocation-to-an-ionic-2-application/)

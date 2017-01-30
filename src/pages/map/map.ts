@@ -4,7 +4,9 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 
 import { GoogleMaps } from '../../providers/google-maps';
+import { ConnectivityService } from '../../providers/connectivity-service';
 
+declare var google;
 
 /*
   Generated class for the Map page.
@@ -22,12 +24,13 @@ export class MapPage {
     map: any;
  
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public maps: GoogleMaps) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public maps: GoogleMaps, public connectivityService: ConnectivityService) {
 
 	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad MapPage');
+		
 		Geolocation.getCurrentPosition().then((position) => {
  
 	        //let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
