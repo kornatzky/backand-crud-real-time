@@ -20,3 +20,9 @@ Now we can upload an image for the user, to replace his/her current upload pictu
 # Location Tracking 
 
 Continuously in background. Uploaded to server. 
+
+# Install App
+
+## Install Geolocation Plugin
+
+    ionic plugin add cordova-plugin-geolocation

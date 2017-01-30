@@ -1,7 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { Geolocation } from 'ionic-native';
+
 import { GoogleMaps } from '../../providers/google-maps';
+
 
 /*
   Generated class for the Map page.
@@ -25,7 +28,24 @@ export class MapPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad MapPage');
-		this.maps.initMap(this.mapElement.nativeElement);
+		Geolocation.getCurrentPosition().then((position) => {
+ 
+	        //let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	        let latLng = new google.maps.LatLng(32.0713990, 34.7865760);
+	 
+	        let mapOptions = {
+	          center: latLng,
+	          zoom: 5,
+	          mapTypeId: google.maps.MapTypeId.ROADMAP
+	        }
+	 
+	        this.maps.initMap(this.mapElement.nativeElement, mapOptions);
+       
+ 
+        }, (err) => {
+	      console.log(err);
+	    });
+		
 	}
 
 }

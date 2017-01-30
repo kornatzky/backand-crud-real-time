@@ -12,15 +12,8 @@ export class GoogleMaps {
 		console.log('Hello GoogleMaps Provider');
     }
  
-    initMap(mapElement){
+    initMap(mapElement, mapOptions){
 
-	 	let latLng = new google.maps.LatLng(32.0713990, 34.7865760);
-	 
-	    let mapOptions = {
-	        center: latLng,
-	        zoom: 5,
-	        mapTypeId: google.maps.MapTypeId.ROADMAP
-	    };
 	 
 	    this.map = new google.maps.Map(mapElement, mapOptions); 
 	 
@@ -79,8 +72,7 @@ export class GoogleMaps {
 	    this.http.post('http://localhost:8080/api/markers', JSON.stringify(options), {headers: headers})
 	        .map(res => res.json())
 	        .subscribe(markers => {
-	 
-	            console.log(markers);
+	
 	            this.addMarkers(markers);
 	 
 	        });
@@ -103,16 +95,21 @@ export class GoogleMaps {
 	 
 	        if(!this.markerExists(lat, lng)){
 	 
-	            marker = new google.maps.Marker({
+	            let markerOnMap = new google.maps.Marker({
 	                map: this.map,
 	                animation: google.maps.Animation.DROP,
 	                position: markerLatLng
 	            }); 
+
+	            let content = "<h4>" + marker.userId + "</h4>";          
+	 
+	  			this.addInfoWindow(markerOnMap, content);
 	 
 	            let markerData = {
 	                lat: lat,
 	                lng: lng,
-	                marker: marker
+	                marker: markerOnMap,
+	                data: marker
 	            };
 	 
 	            this.markers.push(markerData);
@@ -120,6 +117,18 @@ export class GoogleMaps {
 	        }
 	 
 	    });
+	 
+	}
+
+	addInfoWindow(marker, content){
+ 
+	  let infoWindow = new google.maps.InfoWindow({
+	    content: content
+	  });
+	 
+	  google.maps.event.addListener(marker, 'click', () => {
+	    infoWindow.open(this.map, marker);
+	  });
 	 
 	}
  
