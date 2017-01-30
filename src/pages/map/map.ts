@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+
+import { GoogleMaps } from '../../providers/google-maps';
 
 /*
   Generated class for the Map page.
@@ -13,10 +15,17 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class MapPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+	@ViewChild('map') mapElement;
+    map: any;
+ 
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MapPage');
-  }
+	constructor(public navCtrl: NavController, public navParams: NavParams, public maps: GoogleMaps) {
+
+	}
+
+	ionViewDidLoad() {
+		console.log('ionViewDidLoad MapPage');
+		this.maps.initMap(this.mapElement.nativeElement);
+	}
 
 }

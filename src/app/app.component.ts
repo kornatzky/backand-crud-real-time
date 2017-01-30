@@ -6,6 +6,7 @@ import { MapPage } from '../pages/map/map';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 
+import { BackandService } from '@backand/angular2-sdk';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +18,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, private backand: BackandService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -26,6 +27,14 @@ export class MyApp {
       { title: 'Login', component: LoginPage },
       { title: 'Sign Up', component: SignupPage }
     ];
+
+    backand.init({
+        appName: 'bacakandcrudrealtime',
+        signUpToken: 'b2005aa4-de6e-47c0-a978-9afbe7ff36a4',
+        anonymousToken: '6c7b5327-9e2a-4626-bb92-b7255b071810',
+        runSocket: true,
+        isMobile: platform.is('mobile')
+    });
 
   }
 
