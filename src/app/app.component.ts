@@ -28,13 +28,13 @@ export class MyApp {
       { title: 'Sign Up', component: SignupPage }
     ];
 
-    backand.init({
-        appName: 'bacakandcrudrealtime',
-        signUpToken: 'b2005aa4-de6e-47c0-a978-9afbe7ff36a4',
-        anonymousToken: '6c7b5327-9e2a-4626-bb92-b7255b071810',
-        runSocket: true,
-        isMobile: platform.is('mobile')
-    });
+    // backand.init({
+    //     appName: 'bacakandcrudrealtime',
+    //     signUpToken: 'b2005aa4-de6e-47c0-a978-9afbe7ff36a4',
+    //     anonymousToken: '6c7b5327-9e2a-4626-bb92-b7255b071810',
+    //     runSocket: true,
+    //     isMobile: platform.is('mobile')
+    // });
 
   }
 

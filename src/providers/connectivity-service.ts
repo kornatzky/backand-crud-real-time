@@ -8,49 +8,46 @@ declare var Connection;
 export class ConnectivityService {
  
   onDevice: boolean;
+  disconnectSubscription: any;
+  connectSubscription: any;
+
  
   constructor(public platform: Platform){
     this.onDevice = this.platform.is('cordova');
+  }
 
-    // watch network for a disconnect
-	let disconnectSubscription = Network.onDisconnect().subscribe(() => {
-	  console.log('network was disconnected :-(');
-	});
+ //  subscribeConnection() {
+ //  	// watch network for a disconnect
+	// this.disconnectSubscription = Network.onDisconnect();
+	// return this.disconnectSubscription;
+ //  }
 
-	// stop disconnect watch
-	disconnectSubscription.unsubscribe();
+ //  subscribeDisconnection(){ 
+	// // watch network for a connection
+	// this.connectSubscription = Network.onConnect();
+	// return this.connectSubscription;
+ //  }
 
-
-	// watch network for a connection
-	let connectSubscription = Network.onConnect().subscribe(() => {
-	  console.log('network connected!'); 
-	  // We just got a connection but we need to wait briefly
-	   // before we determine the connection type.  Might need to wait 
-	  // prior to doing any api requests as well.
-	  setTimeout(() => {
-	    if (Network.type === 'wifi') {
-	      console.log('we got a wifi connection, woohoo!');
-	    }
-	  }, 3000);
-	});
-
-	// stop connect watch
-	connectSubscription.unsubscribe();
+ //  unsubscribe(){
+ //  	// stop disconnect watch
+	// this.disconnectSubscription.unsubscribe();
+	// // stop connect watch
+	// this.connectSubscription.unsubscribe();
+ //  }
+ 
+  isOnline(): boolean {
+    if(this.onDevice){
+      return Network.type !== 'none';
+    } else {
+      return navigator.onLine; 
+    }
   }
  
-  // isOnline(): boolean {
-  //   if(this.onDevice && Network.connection){
-  //     return Network.connection !== Connection.NONE;
-  //   } else {
-  //     return navigator.onLine; 
-  //   }
-  // }
- 
-  // isOffline(): boolean {
-  //   if(this.onDevice && Network.connection){
-  //     return Network.connection === Connection.NONE;
-  //   } else {
-  //     return !navigator.onLine;   
-  //   }
-  // }
+  isOffline(): boolean {
+    if(this.onDevice){
+      return Network.type === 'none';
+    } else {
+      return !navigator.onLine;   
+    }
+  }
 }

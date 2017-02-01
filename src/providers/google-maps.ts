@@ -68,8 +68,9 @@ export class GoogleMaps {
 	 
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
-	 
-	    this.http.post('http://localhost:8080/api/markers', JSON.stringify(options), {headers: headers})
+	 	var url = 'http://e7ffb9b6.ngrok.io';
+	 	// http://localhost:8080
+	    this.http.post(url + '/api/markers', JSON.stringify(options), {headers: headers})
 	        .map(res => res.json())
 	        .subscribe(markers => {
 	
