@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { LocalMongoDB } from './local-mongo-db';
+
  
 @Injectable()
 export class GoogleMaps {
@@ -8,7 +10,7 @@ export class GoogleMaps {
     map: any;
     markers: any = [];
  
-    constructor(public http: Http) {
+    constructor(public http: Http, public mongodb: LocalMongoDB) {
 		console.log('Hello GoogleMaps Provider');
     }
  
@@ -60,7 +62,9 @@ export class GoogleMaps {
 	        maxDistance: boundingRadius
 	    }
 	 
-	    this.getMarkers(options);
+	    this.mongodb.getMarkers(options).subscribe(markers => {
+	            this.addMarkers(markers);
+	    	});
 	 
 	}
  
@@ -68,8 +72,8 @@ export class GoogleMaps {
 	 
 	    let headers = new Headers();
 	    headers.append('Content-Type', 'application/json');
-	 	var url = 'http://e7ffb9b6.ngrok.io';
-	 	// http://localhost:8080
+	 	var url = // 'http://e7ffb9b6.ngrok.io';
+	 	'http://localhost:8080';
 	    this.http.post(url + '/api/markers', JSON.stringify(options), {headers: headers})
 	        .map(res => res.json())
 	        .subscribe(markers => {
