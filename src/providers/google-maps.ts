@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { LocalMongoDB } from './local-mongo-db';
+import { BackandDB } from './backand-db';
 
  
 @Injectable()
@@ -10,7 +10,7 @@ export class GoogleMaps {
     map: any;
     markers: any = [];
  
-    constructor(public http: Http, public mongodb: LocalMongoDB) {
+    constructor(public http: Http, public backand: BackandDB) {
 		console.log('Hello GoogleMaps Provider');
     }
  
@@ -62,25 +62,14 @@ export class GoogleMaps {
 	        maxDistance: boundingRadius
 	    }
 	 
-	    this.mongodb.getMarkers(options).subscribe(markers => {
-	            this.addMarkers(markers);
+	    this.backand.getMarkers(options).subscribe(
+	    	markers => {
+	    	    console.log(markers);
+	            this.addMarkers(markers.data);
+	    	},
+	    	err => {
+	    		console.log(err);	
 	    	});
-	 
-	}
- 
-	getMarkers(options){
-	 
-	    let headers = new Headers();
-	    headers.append('Content-Type', 'application/json');
-	 	var url = // 'http://e7ffb9b6.ngrok.io';
-	 	'http://localhost:8080';
-	    this.http.post(url + '/api/markers', JSON.stringify(options), {headers: headers})
-	        .map(res => res.json())
-	        .subscribe(markers => {
-	
-	            this.addMarkers(markers);
-	 
-	        });
 	 
 	}
  
@@ -93,8 +82,8 @@ export class GoogleMaps {
 	 
 	    markers.forEach((marker) => {
 	 
-	        lat = marker.loc.coordinates[1];
-	        lng = marker.loc.coordinates[0];
+	        lat = marker.loc[0];
+	        lng = marker.loc[1];
 	 
 	        markerLatLng = new google.maps.LatLng(lat, lng);
 	 

@@ -40,7 +40,3 @@ Continuously in background. Uploaded to server.
 [Dynamically Loading Markers with MongoDB in Ionic 2 – Part 2](https://www.joshmorony.com/dynamically-loading-markers-with-mongodb-in-ionic-2-part-2/)
 
 [Creating an Advanced Google Maps Component in Ionic 2](https://www.joshmorony.com/creating-an-advanced-google-maps-component-in-ionic-2/)
-
-[Create Marker Clusters with Google Maps in Ionic 2](https://www.joshmorony.com/create-marker-clusters-with-google-maps-in-ionic-2/)
-
-[Adding Background Geolocation to an Ionic 2 Application](https://www.joshmorony.com/adding-background-geolocation-to-an-ionic-2-application/)

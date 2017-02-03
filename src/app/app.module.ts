@@ -1,5 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { BackandService } from '@backand/angular2-sdk';
+
 import { MyApp } from './app.component';
 
 import { MapPage } from '../pages/map/map';
@@ -9,9 +11,8 @@ import { CardPage } from '../pages/card/card';
 
 import { GoogleMaps } from '../providers/google-maps';
 import { ConnectivityService } from '../providers/connectivity-service';
-import { LocalMongoDB } from '../providers/local-mongo-db';
+import { BackandDB } from '../providers/backand-db';
 
-import { BackandService } from '@backand/angular2-sdk';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,6 @@ import { BackandService } from '@backand/angular2-sdk';
     SignupPage,
     CardPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, GoogleMaps, BackandService, ConnectivityService, LocalMongoDB]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, GoogleMaps, BackandService, BackandDB, ConnectivityService]
 })
 export class AppModule {}
