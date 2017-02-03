@@ -6,6 +6,8 @@ import { Geolocation } from 'ionic-native';
 import { GoogleMaps } from '../../providers/google-maps';
 import { ConnectivityService } from '../../providers/connectivity-service';
 
+import { CreateMarkerPage } from '../../pages/create-marker/create-marker';
+
 declare var google;
 
 /*
@@ -134,6 +136,10 @@ export class MapPage {
 	 
 	enableMap(){
 	    console.log("enable map");
+	}
+
+	addMarker(){
+		this.navCtrl.push(CreateMarkerPage);
 	}
 
 }

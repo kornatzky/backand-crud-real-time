@@ -95,7 +95,7 @@ export class GoogleMaps {
 	                position: markerLatLng
 	            }); 
 
-	            let content = "<h4>" + marker.userId + "</h4>";          
+	            let content = "<h4 (click)='markerClicked(marker.userId)'>" + marker.userId + "</h4>";          
 	 
 	  			this.addInfoWindow(markerOnMap, content);
 	 
@@ -112,6 +112,10 @@ export class GoogleMaps {
 	 
 	    });
 	 
+	}
+
+	markerClicked(userId: string){
+		console.log('markerClicked', userId);
 	}
 
 	addInfoWindow(marker, content){

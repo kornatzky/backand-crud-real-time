@@ -8,6 +8,7 @@ import { MapPage } from '../pages/map/map';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { CardPage } from '../pages/card/card';
+import { CreateMarkerPage } from '../pages/create-marker/create-marker';
 
 import { GoogleMaps } from '../providers/google-maps';
 import { ConnectivityService } from '../providers/connectivity-service';
@@ -20,7 +21,8 @@ import { BackandDB } from '../providers/backand-db';
     MapPage,
     LoginPage,
     SignupPage,
-    CardPage
+    CardPage,
+    CreateMarkerPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -31,7 +33,8 @@ import { BackandDB } from '../providers/backand-db';
     MapPage,
     LoginPage,
     SignupPage,
-    CardPage
+    CardPage,
+    CreateMarkerPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, GoogleMaps, BackandService, BackandDB, ConnectivityService]
 })

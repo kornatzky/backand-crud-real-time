@@ -28,10 +28,12 @@ export class BackandDB {
 	}
 
 
-	getMarkers(options): Observable<any> {
-	    
+	getMarkers(options): Observable<any> {   
 	    return Observable.fromPromise(this.backand.object.getList('markers'));
+	}
 
+	createMarker(marker): Observable<any> {
+		return Observable.fromPromise(this.backand.object.create('markers', marker));
 	}
 
 }
