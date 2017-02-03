@@ -16,9 +16,6 @@ import * as moment from 'moment';
 export class CreateMarkerPage {
 
   marker: any = {};
-  // userId: string;
-  // date: string;
-  // time: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public backand: BackandDB) {}
 

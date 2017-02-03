@@ -29,6 +29,12 @@ export class BackandDB {
 
 
 	getMarkers(options): Observable<any> {   
+		// let params = {
+  //         filter: [
+  //             this.backand.helpers.filter.create('name', this.backand.helpers.filter.operators.text.contains, q),
+  //         ],
+	 //    };
+	    // return Observable.fromPromise(this.backand.object.getList('markers', params));
 	    return Observable.fromPromise(this.backand.object.getList('markers'));
 	}
 
