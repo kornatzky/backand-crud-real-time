@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { BackandDB } from '../../providers/backand-db';
 
 /*
   Generated class for the Login page.
@@ -13,10 +14,30 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  authenticationDetails: any = {};
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public backand: BackandDB) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+  }
+
+  submitLogin() {
+  	console.log("submitLogin", this.authenticationDetails);
+  	
+  	this.backand.signin(this.authenticationDetails).subscribe(
+    	data => {
+    	    console.log(data);
+    	},
+    	err => {
+    		console.log(err);	
+    	});
+  }
+
+  socialSignin(provider) {
+  	console.log("socialSignin", provider);
+  	
+  	
   }
 
 }

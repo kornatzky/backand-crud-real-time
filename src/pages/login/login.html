@@ -8,7 +8,31 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Login</h3>
-  login
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+
+	<ion-list>
+		
+		<ion-item>
+			<ion-label fixed>Username</ion-label>
+			<ion-input type="text" [(ngModel)]="authenticationDetails.username"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label fixed>Password</ion-label>
+			<ion-input type="password" [(ngModel)]="authenticationDetails.password"></ion-input>
+		</ion-item>
+
+		<br/>
+
+		<button ion-button (click)="submitLogin()">Login</button>
+
+		<br/>
+
+		<button ion-button class="icon-left ion-social-facebook" color="positive" (click)="socialSignin('facebook')" type="button">
+            <ion-icon name="logo-facebook"></ion-icon>
+            Facebook
+        </button>
+
+
+	</ion-list>
+
 </ion-content>

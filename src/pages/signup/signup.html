@@ -8,7 +8,38 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Sign Up</h3>
-  sign up
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    
+    <ion-list>
+		
+		<ion-item>
+			<ion-label fixed>Username</ion-label>
+			<ion-input type="text" [(ngModel)]="userDetails.username"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label fixed>First Name</ion-label>
+			<ion-input type="text" [(ngModel)]="userDetails.firstName"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label fixed>Last Name</ion-label>
+			<ion-input type="text" [(ngModel)]="userDetails.lastName"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label fixed>Password</ion-label>
+			<ion-input type="password" [(ngModel)]="userDetails.signUpPassword"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label fixed>Confirm Password</ion-label>
+			<ion-input type="password" [(ngModel)]="userDetails.confirmPassword"></ion-input>
+		</ion-item>
+
+		<br/>
+
+		<button ion-button (click)="submitSignup()">Sign Up</button>
+
+	</ion-list>
+
 </ion-content>

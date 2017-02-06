@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { BackandDB } from '../../providers/backand-db';
 
 /*
   Generated class for the Signup page.
@@ -13,10 +14,24 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class SignupPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+	userDetails: any = {};
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams, public backand: BackandDB) {}
+
+	ionViewDidLoad() {
+		console.log('ionViewDidLoad SignupPage');
+	}
+
+	submitSignup() {
+	  	console.log("submitSignup", this.userDetails);
+	  	
+	  	this.backand.signup(this.userDetails).subscribe(
+	    	data => {
+	    	    console.log(data);
+	    	},
+	    	err => {
+	    		console.log(err);	
+	    	});
+	}
 
 }

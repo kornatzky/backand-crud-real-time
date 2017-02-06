@@ -155,7 +155,7 @@ export class GoogleMaps {
             km: 6371
         };
  
-        let R = earthRadius[units || 'miles'];
+        let R = earthRadius[units || 'km'];
         let lat1 = pos1.lat;
         let lon1 = pos1.lng;
         let lat2 = pos2.lat;

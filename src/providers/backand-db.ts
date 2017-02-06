@@ -19,7 +19,7 @@ export class BackandDB {
 	    console.log('Hello BackandDB Provider');
 
 	    backand.init({
-	        appName: 'bacakandcrudrealtime',
+	        appName: 'backandcrudrealtime',
 	        signUpToken: 'b2005aa4-de6e-47c0-a978-9afbe7ff36a4',
 	        anonymousToken: '6c7b5327-9e2a-4626-bb92-b7255b071810',
 	        runSocket: true,
@@ -29,17 +29,23 @@ export class BackandDB {
 
 
 	getMarkers(options): Observable<any> {   
-		// let params = {
-  //         filter: [
-  //             this.backand.helpers.filter.create('name', this.backand.helpers.filter.operators.text.contains, q),
-  //         ],
-	 //    };
-	    // return Observable.fromPromise(this.backand.object.getList('markers', params));
-	    return Observable.fromPromise(this.backand.object.getList('markers'));
+		let filter = {
+			loc:  { $withinKilometers: [[options.lat, options.lng], options.maxDistance] }
+	    };
+	 
+	    return Observable.fromPromise(this.backand.object.getList('markers', filter));
 	}
 
 	createMarker(marker): Observable<any> {
 		return Observable.fromPromise(this.backand.object.create('markers', marker));
+	}
+
+	signin(authenticationDetails: any) {
+		return Observable.fromPromise(this.backand.signin(authenticationDetails.username, authenticationDetails.password));
+	}
+
+	signup(userDetails: any) {
+		return Observable.fromPromise(this.backand.signup(userDetails.email, userDetails.signUpPassword, userDetails.confirmPassword, userDetails.firstName, userDetails.lastName));
 	}
 
 }
