@@ -37,7 +37,13 @@ export class LoginPage {
   socialSignin(provider) {
   	console.log("socialSignin", provider);
   	
-  	
+  	this.backand.socialSignin(provider).subscribe(
+    	data => {
+    	    console.log(data);
+    	},
+    	err => {
+    		console.log(err);	
+    	});
   }
 
 }

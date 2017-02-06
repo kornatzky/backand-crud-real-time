@@ -48,4 +48,8 @@ export class BackandDB {
 		return Observable.fromPromise(this.backand.signup(userDetails.email, userDetails.signUpPassword, userDetails.confirmPassword, userDetails.firstName, userDetails.lastName));
 	}
 
+	socialSignin(provider: string) {
+		return Observable.fromPromise(this.backand.socialSignin(provider));
+	}
+
 }
