@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Events } from 'ionic-angular';
+
 import { BackandDB } from './backand-db';
+
+
 
  
 @Injectable()
@@ -10,7 +14,7 @@ export class GoogleMaps {
     map: any;
     markers: any = [];
  
-    constructor(public http: Http, public backand: BackandDB) {
+    constructor(public http: Http, public backand: BackandDB, public events: Events) {
 		console.log('Hello GoogleMaps Provider');
     }
  
@@ -101,15 +105,17 @@ export class GoogleMaps {
 	            }); 
 
 	            let content = "<h4 (click)='markerClicked(marker.userId)'>" + marker.userId + "</h4>";          
-	 
-	  			this.addInfoWindow(markerOnMap, content);
-	 
+
 	            let markerData = {
 	                lat: lat,
 	                lng: lng,
 	                marker: markerOnMap,
 	                data: marker
 	            };
+
+	  			this.addInfoWindow(markerOnMap, content, markerData);
+	 
+
 	 
 	            this.markers.push(markerData);
 	 
@@ -119,11 +125,12 @@ export class GoogleMaps {
 	 
 	}
 
-	markerClicked(userId: string){
-		console.log('markerClicked', userId);
+	markerClicked(id: string){
+		this.events.publish('markerClicked', id);
 	}
+	
 
-	addInfoWindow(marker, content){
+	addInfoWindow(marker: any, content: string, markerData: any){
  
 	  let infoWindow = new google.maps.InfoWindow({
 	    content: content
@@ -131,6 +138,7 @@ export class GoogleMaps {
 	 
 	  google.maps.event.addListener(marker, 'click', () => {
 	    infoWindow.open(this.map, marker);
+	    this.markerClicked(markerData.data.id);
 	  });
 	 
 	}

@@ -56,4 +56,8 @@ export class BackandDB {
 		this.backand.on(eventName, callback);
 	}
 
+	getOneMarker(id: string): Observable<any> {
+		return Observable.fromPromise(this.backand.object.getOne('markers', id));
+	} 
+
 }

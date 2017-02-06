@@ -7,8 +7,11 @@ import { GoogleMaps } from '../../providers/google-maps';
 import { ConnectivityService } from '../../providers/connectivity-service';
 
 import { CreateMarkerPage } from '../../pages/create-marker/create-marker';
+import { CardPage } from '../../pages/card/card';
 
-declare var google;
+
+import { Events } from 'ionic-angular';
+
 
 /*
   Generated class for the Map page.
@@ -28,8 +31,11 @@ export class MapPage {
     apiKey: any;
  
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public mapService: GoogleMaps, public connectivityService: ConnectivityService) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public mapService: GoogleMaps, public connectivityService: ConnectivityService, public events: Events) {
 		this.loadGoogleMaps();
+		events.subscribe('markerClicked', (id) => {
+		  this.markerClicked(id);
+		});
 	}
 
 	loadGoogleMaps() {
@@ -140,6 +146,10 @@ export class MapPage {
 
 	addMarker(){
 		this.navCtrl.push(CreateMarkerPage);
+	}
+
+	markerClicked(id: string){
+		this.navCtrl.push(CardPage, { id: id });
 	}
 
 }
