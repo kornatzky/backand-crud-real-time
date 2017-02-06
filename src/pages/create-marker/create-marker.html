@@ -17,36 +17,36 @@
 
 	<ion-list>
 
-	  <ion-item>
-	    <ion-label fixed>User Id</ion-label>
-	    <ion-input type="text" [(ngModel)]="marker.userId"></ion-input>
-	  </ion-item>
+		<ion-item>
+			<ion-label fixed>User Id</ion-label>
+			<ion-input type="text" [(ngModel)]="marker.userId"></ion-input>
+		</ion-item>
 
-	  <ion-item>
-	    <ion-label fixed>Latitude</ion-label>
-	    <ion-input type="text" [(ngModel)]="marker.latitude"></ion-input>
-	  </ion-item>
+		<ion-item>
+			<ion-label fixed>Latitude</ion-label>
+			<ion-input type="text" [(ngModel)]="marker.latitude"></ion-input>
+		</ion-item>
 
-	  <ion-item>
-	    <ion-label fixed>Longitude</ion-label>
-	    <ion-input type="text" [(ngModel)]="marker.longitude"></ion-input>
-	  </ion-item>
+		<ion-item>
+			<ion-label fixed>Longitude</ion-label>
+			<ion-input type="text" [(ngModel)]="marker.longitude"></ion-input>
+		</ion-item>
 
-	 <ion-item>
-	      <ion-label>Date</ion-label>
-	      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="marker.date"></ion-datetime>
-     </ion-item>
-
-
-    <ion-item>
-      <ion-label>Start Time</ion-label>
-      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="marker.time"></ion-datetime>
-    </ion-item>
+		<ion-item>
+			<ion-label>Date</ion-label>
+			<ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="marker.date"></ion-datetime>
+		</ion-item>
 
 
-	  <br/>
+		<ion-item>
+			<ion-label>Start Time</ion-label>
+			<ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="marker.time"></ion-datetime>
+		</ion-item>
 
-	  <button ion-button (click)="submitMarker()">Submit</button>
+		<br/>
+
+
+		<button ion-button (click)="submitMarker()">Submit</button>
 
 	</ion-list>
 
