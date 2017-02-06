@@ -40,16 +40,20 @@ export class BackandDB {
 		return Observable.fromPromise(this.backand.object.create('markers', marker));
 	}
 
-	signin(authenticationDetails: any) {
+	signin(authenticationDetails: any): Observable<any>  {
 		return Observable.fromPromise(this.backand.signin(authenticationDetails.username, authenticationDetails.password));
 	}
 
-	signup(userDetails: any) {
+	signup(userDetails: any): Observable<any>  {
 		return Observable.fromPromise(this.backand.signup(userDetails.email, userDetails.signUpPassword, userDetails.confirmPassword, userDetails.firstName, userDetails.lastName));
 	}
 
-	socialSignin(provider: string) {
+	socialSignin(provider: string): Observable<any>  {
 		return Observable.fromPromise(this.backand.socialSignin(provider));
+	}
+
+	on(eventName: string, callback?: (data?: any) => void)  {
+		this.backand.on(eventName, callback);
 	}
 
 }

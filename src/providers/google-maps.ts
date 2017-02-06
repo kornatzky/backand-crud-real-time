@@ -26,7 +26,12 @@ export class GoogleMaps {
 	        google.maps.event.addListener(this.map, 'dragend', () => {
 	            this.loadMarkers();
 	        });
-	 
+
+	        var that = this;
+	        this.backand.on('markersUpdate', function(data) {
+	        	that.loadMarkers();
+	        });
+		 
     	});
  
     }
