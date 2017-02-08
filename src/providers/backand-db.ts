@@ -30,7 +30,11 @@ export class BackandDB {
 
 	getMarkers(options): Observable<any> {   
 		let filter = {
-			loc:  { $withinKilometers: [[options.lat, options.lng], options.maxDistance] }
+			"q": { 
+				"loc":  { 
+					"$withinKilometers": [[options.lat, options.lng], options.maxDistance] 
+				}
+			}
 	    };
 	 
 	    return Observable.fromPromise(this.backand.object.getList('markers', filter));
