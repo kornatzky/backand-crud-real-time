@@ -29,7 +29,8 @@ export class CreateMarkerPage {
   		userId: this.marker.userId,
   		loc: [Number.parseFloat(this.marker.latitude), Number.parseFloat(this.marker.longitude)],
   		timestamp: moment(this.marker.date + ' ' + this.marker.time).format('YYYY-MM-DDTHH:mm:ss')
-  	}
+  	};
+    console.log(data);
   	this.backand.createMarker(this.marker).subscribe(
     	data => {
     	    console.log(data);

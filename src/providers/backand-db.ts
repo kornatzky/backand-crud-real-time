@@ -24,6 +24,7 @@ export class BackandDB {
 	        anonymousToken: '6c7b5327-9e2a-4626-bb92-b7255b071810',
 	        runSocket: true,
 	        isMobile: platform.is('mobile')
+	        // useAnonymousTokenByDefault: false
 	    });
 	}
 
@@ -37,7 +38,7 @@ export class BackandDB {
 			}
 	    };
 	 
-	    return Observable.fromPromise(this.backand.object.getList('markers', filter));
+	    return Observable.fromPromise(this.backand.object.getList('markers', { filter: filter }));
 	}
 
 	createMarker(marker): Observable<any> {
