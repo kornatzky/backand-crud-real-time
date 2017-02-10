@@ -28,6 +28,7 @@ export class SignupPage {
 	  	this.backand.signup(this.userDetails).subscribe(
 	    	data => {
 	    	    console.log(data);
+	    	    this.userDetails = {};
 	    	},
 	    	err => {
 	    		console.log(err);	

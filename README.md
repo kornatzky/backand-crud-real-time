@@ -17,9 +17,9 @@ Now we can upload an image for the user, to replace his/her current upload pictu
 * Email and password
 * Facebook
 
-# Location Tracking 
+# Dynamic Update of Screens
 
-Continuously in background. Uploaded to server. 
+The side menu updates its content based on authentication events. The login screens becomes the logout screen when the user is logged in.
 
 # Ionic Native Plugins
 
@@ -33,15 +33,21 @@ Continuously in background. Uploaded to server.
 
 # Working with Backand
 
+## Provider
+
 We construct a provider `BackandDB` that wraps the [Backand Angular JS 2 SDK](https://github.com/backand/angular2-sdk). In the provider constructor we initialise the SDK, 
 
-    backand.init({
-            appName: 'bacakandcrudrealtime',
-            signUpToken: 'b2005aa4-de6e-47c0-a978-9afbe7ff36a4',
-            anonymousToken: '6c7b5327-9e2a-4626-bb92-b7255b071810',
-            runSocket: true,
-            isMobile: platform.is('mobile')
-        });
+    this.backandConfig = {
+        appName: 'backandcrudrealtime',
+        signUpToken: '9d675688-c4df-41aa-89c2-81afa68931df',
+        anonymousToken: '6c7b5327-9e2a-4626-bb92-b7255b071810',
+        runSocket: true,
+        isMobile: platform.is('mobile'),
+        useAnonymousTokenByDefault: true
+    };
+    backand.init(this.backandConfig);
+
+## Model
 
 We have a single object `markers` whose model is:
 
@@ -59,13 +65,14 @@ We have a single object `markers` whose model is:
           }
     }
 
+## Observables
 The SDK works with promises and in the provider we make it into an observable, like this:
 
     getMarkers(options): Observable<any> {      
         return Observable.fromPromise(this.backand.object.getList('markers'));
     }
 
-and subsctibe to it in other providers or in pages, like this:
+and subscribe to it in other providers or in pages, like this:
 
     this.backand.getMarkers(options).subscribe(
             markers => {
@@ -74,6 +81,24 @@ and subsctibe to it in other providers or in pages, like this:
             err => {
                 console.log(err);   
             });
+
+## Authentication
+
+The provider has a flag `isUserLoggedIn`.
+
+We listen to authentication events, and construct a merged observable:
+
+    let obs: Observable<any> = Observable.merge(
+        Observable.fromEvent(window, this.backand.constants.EVENTS.SIGNIN),
+        Observable.fromEvent(window, this.backand.constants.EVENTS.SIGNOUT),
+        Observable.fromEvent(window, this.backand.constants.EVENTS.SIGNUP)
+    );
+
+listen to it, and update the flag. 
+
+We provide the observable via the function `listenAuthenticationEvents`, to components such as pages that would like to modify their presentation and behavior on such events.
+
+
 
 # References
 

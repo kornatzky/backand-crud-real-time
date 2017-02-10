@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Login</ion-title>
+    <ion-title>{{ !isLoggedIn? "Login" : "Logout" }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,23 +11,26 @@
 
 	<ion-list>
 		
-		<ion-item>
+  
+		<ion-item *ngIf="!isLoggedIn">
 			<ion-label fixed>Username</ion-label>
 			<ion-input type="text" [(ngModel)]="authenticationDetails.username"></ion-input>
 		</ion-item>
 
-		<ion-item>
+		<ion-item *ngIf="!isLoggedIn">
 			<ion-label fixed>Password</ion-label>
 			<ion-input type="password" [(ngModel)]="authenticationDetails.password"></ion-input>
 		</ion-item>
 
 		<br/>
 
-		<button ion-button (click)="submitLogin()">Login</button>
+		<button ion-button (click)="submitLogin()" *ngIf="!isLoggedIn">Login</button>
+
+		<button ion-button (click)="submitLogout()" *ngIf="isLoggedIn">Logout</button>
 
 		<br/>
 
-		<button ion-button class="icon-left ion-social-facebook" color="positive" (click)="socialSignin('facebook')" type="button">
+		<button ion-button class="icon-left ion-social-facebook" color="positive" (click)="socialSignin('facebook')" type="button" *ngIf="!isLoggedIn">
             <ion-icon name="logo-facebook"></ion-icon>
             Facebook
         </button>

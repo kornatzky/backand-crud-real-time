@@ -15,17 +15,25 @@ import { BackandService } from '@backand/angular2-sdk';
 @Injectable()
 export class BackandDB {
 
+	isUserLoggedIn: boolean = false;
+	backandConfig: any;
+
+
 	constructor(public http: Http, public platform: Platform, private backand: BackandService) {
 	    console.log('Hello BackandDB Provider');
-
-	    backand.init({
+	    this.backandConfig = {
 	        appName: 'backandcrudrealtime',
-	        signUpToken: 'b2005aa4-de6e-47c0-a978-9afbe7ff36a4',
+	        signUpToken: '9d675688-c4df-41aa-89c2-81afa68931df',
 	        anonymousToken: '6c7b5327-9e2a-4626-bb92-b7255b071810',
 	        runSocket: true,
-	        isMobile: platform.is('mobile')
-	        // useAnonymousTokenByDefault: false
-	    });
+	        isMobile: platform.is('mobile'),
+	        useAnonymousTokenByDefault: true
+	    };
+	    backand.init(this.backandConfig);
+	}
+
+	isAuthenticated(): boolean {
+		return this.isUserLoggedIn;
 	}
 
 
@@ -45,12 +53,20 @@ export class BackandDB {
 		return Observable.fromPromise(this.backand.object.create('markers', marker));
 	}
 
+	updateMarker(id, marker): Observable<any> {
+		return Observable.fromPromise(this.backand.object.create('markers', id, marker));
+	}
+
 	signin(authenticationDetails: any): Observable<any>  {
 		return Observable.fromPromise(this.backand.signin(authenticationDetails.username, authenticationDetails.password));
 	}
 
+	signout(): Observable<any>  {
+		return Observable.fromPromise(this.backand.signout());
+	}
+
 	signup(userDetails: any): Observable<any>  {
-		return Observable.fromPromise(this.backand.signup(userDetails.firstName, userDetails.lastName, userDetails.email, userDetails.signUpPassword, userDetails.confirmPassword));
+		return Observable.fromPromise(this.backand.signup(userDetails.firstName, userDetails.lastName, userDetails.username, userDetails.signUpPassword, userDetails.confirmPassword));
 	}
 
 	socialSignin(provider: string): Observable<any>  {
@@ -64,5 +80,41 @@ export class BackandDB {
 	getOneMarker(id: string): Observable<any> {
 		return Observable.fromPromise(this.backand.object.getOne('markers', id));
 	} 
+
+	isLoggedIn(): Observable<any> {
+		return Observable.fromPromise(this.backand.user.getUsername());
+	}
+
+	listenAuthenticationEvents(): Observable<any> {
+		let obs: Observable<any> = Observable.merge(
+			Observable.fromEvent(window, this.backand.constants.EVENTS.SIGNIN),
+			Observable.fromEvent(window, this.backand.constants.EVENTS.SIGNOUT),
+			Observable.fromEvent(window, this.backand.constants.EVENTS.SIGNUP)
+		);
+		obs.subscribe(
+			data => {
+				switch(data.eventName)
+				{
+					case this.backand.constants.EVENTS.SIGNIN:
+						this.isUserLoggedIn = true;
+					break;
+
+					case this.backand.constants.EVENTS.SIGNOUT:
+						this.isUserLoggedIn = false;
+					break;
+
+					case this.backand.constants.EVENTS.SIGNUP:
+						if (this.backandConfig.runSigninAfterSignup){
+							this.isUserLoggedIn = true;
+						}
+					break;
+				}
+			}, 
+			err => {
+
+			}
+		);
+		return obs;
+	}
 
 }

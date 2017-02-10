@@ -16,6 +16,7 @@ export class GoogleMaps {
  
     constructor(public http: Http, public backand: BackandDB, public events: Events) {
 		console.log('Hello GoogleMaps Provider');
+		this.markers = [];
     }
  
     initMap(mapElement, mapOptions){
@@ -32,54 +33,59 @@ export class GoogleMaps {
 	        });
 
 	        var that = this;
-	        this.backand.on('markersUpdate', function(data) {
-	        	that.loadMarkers();
-	        });
+
+	        // this.backand.on('markersUpdate', function(data) {
+	        // 	that.loadMarkers();
+	        // });
 		 
     	});
  
     }
  
 	loadMarkers(){
-	 
-	    let center = this.map.getCenter(),
-	        bounds = this.map.getBounds(),
-	        zoom = this.map.getZoom();
-	 
-	    // Convert to readable format
-	    let centerNorm = {
-	        lat: center.lat(),
-	        lng: center.lng()
-	    };
-	 
-	    let boundsNorm = {
-	        northEast: {
-	            lat: bounds.getNorthEast().lat(),
-	            lng: bounds.getNorthEast().lng()
-	        },
-	        southWest: {
-	            lat: bounds.getSouthWest().lat(),
-	            lng: bounds.getSouthWest().lng()
-	        }
-	    };
-	 
-	    let boundingRadius = this.getBoundingRadius(centerNorm, boundsNorm);
-	 
-	    let options = {
-	        lng: centerNorm.lng,
-	        lat: centerNorm.lat,
-	        maxDistance: boundingRadius
-	    }
-	 
-	    this.backand.getMarkers(options).subscribe(
-	    	markers => {
-	    	    console.log(markers);
-	            this.addMarkers(markers.data);
-	    	},
-	    	err => {
-	    		console.log(err);	
-	    	});
-	 
+		// if (this.backand.isAuthenticated()) 
+		{
+				
+				
+
+				let center = this.map.getCenter(),
+			        bounds = this.map.getBounds(),
+			        zoom = this.map.getZoom();
+			 
+			    // Convert to readable format
+			    let centerNorm = {
+			        lat: center.lat(),
+			        lng: center.lng()
+			    };
+			 
+			    let boundsNorm = {
+			        northEast: {
+			            lat: bounds.getNorthEast().lat(),
+			            lng: bounds.getNorthEast().lng()
+			        },
+			        southWest: {
+			            lat: bounds.getSouthWest().lat(),
+			            lng: bounds.getSouthWest().lng()
+			        }
+			    };
+			 
+			    let boundingRadius = this.getBoundingRadius(centerNorm, boundsNorm);
+			 
+			    let options = {
+			        lng: centerNorm.lng,
+			        lat: centerNorm.lat,
+			        maxDistance: boundingRadius
+			    }
+			 
+			    this.backand.getMarkers(options).subscribe(
+			    	markers => {
+			    	    console.log(markers);
+			            this.addMarkers(markers.data);
+			    	},
+			    	err => {
+			    		console.log(err);	
+			    	});
+		} 
 	}
  
 	addMarkers(markers){

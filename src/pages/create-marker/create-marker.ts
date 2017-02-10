@@ -19,9 +19,6 @@ export class CreateMarkerPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public backand: BackandDB) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateMarkerPage');
-  }
 
   submitMarker() {
   	console.log("submitMarker", this.marker);

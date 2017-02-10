@@ -6,6 +6,8 @@ import { MapPage } from '../pages/map/map';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 
+import { BackandDB } from '../providers/backand-db';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -17,16 +19,45 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, public backand: BackandDB) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Map', component: MapPage },
-      { title: 'Login', component: LoginPage },
-      { title: 'Sign Up', component: SignupPage }
-    ];
+    if (this.backand.isAuthenticated()){
+      this.pages = [
+        { title: 'Map', component: MapPage },
+        { title: 'Logout', component: LoginPage }
+      ];
+    }
+    else {
+        this.pages = [
+          { title: 'Map', component: MapPage },
+          { title: 'Login', component: LoginPage },
+          { title: 'Sign Up', component: SignupPage }
+        ];
+    }
 
+
+    this.backand.listenAuthenticationEvents().subscribe(
+        data => {
+          if (this.backand.isAuthenticated()){
+            this.pages = [
+              { title: 'Map', component: MapPage },
+              { title: 'Logout', component: LoginPage }
+            ];
+          }
+          else {
+              this.pages = [
+                { title: 'Map', component: MapPage },
+                { title: 'Login', component: LoginPage },
+                { title: 'Sign Up', component: SignupPage }
+              ];
+          }
+        },
+
+        err => {
+          console.log(err);
+        }
+      );
     
 
   }

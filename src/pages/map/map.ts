@@ -35,7 +35,7 @@ export class MapPage {
 		this.loadGoogleMaps();
 		events.subscribe('markerClicked', (id) => {
 		  this.markerClicked(id);
-		});
+		});	
 	}
 
 	loadGoogleMaps() {

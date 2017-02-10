@@ -15,8 +15,11 @@ import { BackandDB } from '../../providers/backand-db';
 export class LoginPage {
 
   authenticationDetails: any = {};
+  isLoggedIn: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public backand: BackandDB) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public backand: BackandDB) {
+    this.isLoggedIn = this.backand.isAuthenticated();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -28,6 +31,7 @@ export class LoginPage {
   	this.backand.signin(this.authenticationDetails).subscribe(
     	data => {
     	    console.log(data);
+          this.authenticationDetails = {};
     	},
     	err => {
     		console.log(err);	
@@ -40,10 +44,27 @@ export class LoginPage {
   	this.backand.socialSignin(provider).subscribe(
     	data => {
     	    console.log(data);
+          this.authenticationDetails = {};
     	},
     	err => {
     		console.log(err);	
     	});
   }
+
+  submitLogout() {
+
+      console.log("submitLogout");
+
+      
+      this.backand.signout().subscribe(
+        data => {
+            console.log(data);
+            this.authenticationDetails = {};
+            this.isLoggedIn = false;
+        },
+        err => {
+          console.log(err);  
+        });
+    }
 
 }
