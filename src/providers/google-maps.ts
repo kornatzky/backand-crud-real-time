@@ -34,9 +34,9 @@ export class GoogleMaps {
 
 	        var that = this;
 
-	        // this.backand.on('markersUpdate', function(data) {
-	        // 	that.loadMarkers();
-	        // });
+	        this.backand.on('markersCreate', function(data) {
+	        	that.loadMarkers();
+	        });
 		 
     	});
  

@@ -29,7 +29,18 @@ export class BackandDB {
 	        isMobile: platform.is('mobile'),
 	        useAnonymousTokenByDefault: true
 	    };
-	    backand.init(this.backandConfig);
+	    this.backand.init(this.backandConfig);
+	    this.isLoggedIn().subscribe(
+	    	data => {
+	    		this.isUserLoggedIn = data;
+	    	}, 
+	    	err => {
+	    		this.isUserLoggedIn = false;
+	    	}
+	    );
+	    this.backand.on('markersCreate', function(data){
+	    	console.log(data);
+	    });
 	}
 
 	isAuthenticated(): boolean {
@@ -54,7 +65,7 @@ export class BackandDB {
 	}
 
 	updateMarker(id, marker): Observable<any> {
-		return Observable.fromPromise(this.backand.object.create('markers', id, marker));
+		return Observable.fromPromise(this.backand.object.update('markers', id, marker));
 	}
 
 	signin(authenticationDetails: any): Observable<any>  {
@@ -82,7 +93,10 @@ export class BackandDB {
 	} 
 
 	isLoggedIn(): Observable<any> {
-		return Observable.fromPromise(this.backand.user.getUsername());
+		return Observable.fromPromise(this.backand.user.getUserDetails()).map((response:any) => { 
+			console.log(response);
+			return response.data ? true : false; 
+		});
 	}
 
 	listenAuthenticationEvents(): Observable<any> {

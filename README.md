@@ -98,7 +98,16 @@ listen to it, and update the flag.
 
 We provide the observable via the function `listenAuthenticationEvents`, to components such as pages that would like to modify their presentation and behavior on such events.
 
+## Socket
 
+Create a real time action in Backand. 
+If such an action, for instance, emits the event 'markersCreate', then we can listen for the event with:
+
+    this.backand.on('markersCreate', function(data){
+        // do something with data
+    });
+
+As in the function `on` in `src/providers/backand-db.ts`.
 
 # References
 

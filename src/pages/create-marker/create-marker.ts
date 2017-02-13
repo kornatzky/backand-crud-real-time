@@ -28,7 +28,7 @@ export class CreateMarkerPage {
   		timestamp: moment(this.marker.date + ' ' + this.marker.time).format('YYYY-MM-DDTHH:mm:ss')
   	};
     console.log(data);
-  	this.backand.createMarker(this.marker).subscribe(
+  	this.backand.createMarker(data).subscribe(
     	data => {
     	    console.log(data);
     	},

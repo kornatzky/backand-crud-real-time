@@ -19,6 +19,14 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public backand: BackandDB) {
     this.isLoggedIn = this.backand.isAuthenticated();
+    this.backand.isLoggedIn().subscribe(
+      data => {
+        this.isLoggedIn = data;
+      }, 
+      err => {
+        this.isLoggedIn = false;
+      }
+    );
   }
 
   ionViewDidLoad() {
