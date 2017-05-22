@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { Geolocation } from 'ionic-native';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { GoogleMaps } from '../../providers/google-maps';
 import { ConnectivityService } from '../../providers/connectivity-service';
@@ -31,7 +31,7 @@ export class MapPage {
     apiKey: any;
  
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public mapService: GoogleMaps, public connectivityService: ConnectivityService, public events: Events) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public mapService: GoogleMaps, public connectivityService: ConnectivityService, public events: Events, private geolocation: Geolocation) {
 		this.loadGoogleMaps();
 		events.subscribe('markerClicked', (id) => {
 		  this.markerClicked(id);
@@ -118,7 +118,7 @@ export class MapPage {
 	 
 	    this.mapInitialised = true;
 	 
-	    Geolocation.getCurrentPosition().then((position) => {
+	    this.geolocation.getCurrentPosition().then((position) => {
 	 
 	      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	 

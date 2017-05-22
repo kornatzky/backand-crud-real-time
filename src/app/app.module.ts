@@ -1,6 +1,15 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { HttpModule } from '@angular/http';
+import { Network } from '@ionic-native/network';
+import { Geolocation } from '@ionic-native/geolocation';
+
 import { BackandService } from '@backand/angular2-sdk';
+
+
 
 import { MyApp } from './app.component';
 
@@ -25,6 +34,8 @@ import { BackandDB } from '../providers/backand-db';
     CreateMarkerPage
   ],
   imports: [
+    HttpModule,
+    BrowserModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -36,6 +47,16 @@ import { BackandDB } from '../providers/backand-db';
     CardPage,
     CreateMarkerPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, GoogleMaps, BackandService, BackandDB, ConnectivityService]
+  providers: [
+    StatusBar,
+    SplashScreen,
+    Network,
+    Geolocation,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
+    GoogleMaps, 
+    BackandService, 
+    BackandDB, 
+    ConnectivityService
+  ]
 })
 export class AppModule {}

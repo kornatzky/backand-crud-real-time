@@ -1,6 +1,8 @@
 # Description
 
-An example app for Backand AngularJS SDK with CRUD and real-time update
+An example app for Backand AngularJS SDK with CRUD and real-time update.
+
+**NOTE: Compatible with Ionic 3.1.2**
 
 #  App Flow
 
@@ -17,6 +19,10 @@ Now we can upload an image for the user, to replace his/her current upload pictu
 * Email and password
 * Facebook
 
+# Signout
+
+Enable signout in Backand. In your app go to `Security` > `Configuration`, and click `Enable sign-out API`.
+
 # Dynamic Update of Screens
 
 The side menu updates its content based on authentication events. The login screens becomes the logout screen when the user is logged in.
@@ -25,11 +31,23 @@ The side menu updates its content based on authentication events. The login scre
 
 ## Geolocation Plugin
 
-    ionic plugin add cordova-plugin-geolocation
+    ionic cordova plugin add cordova-plugin-geolocation 
 
 ## Cordova Network Information Plugin
 
-    ionic plugin add cordova-plugin-network-information
+    ionic cordova plugin add cordova-plugin-network-information
+
+## Cordova Plugin In App Browser
+
+    ionic cordova plugin add cordova-plugin-inappbrowser@1.7.1 --save
+
+# Splash Screen
+
+    ionic cordova plugin add cordova-plugin-splashscreen
+
+# Status Bar
+
+    ionic cordova plugin add cordova-plugin-statusbar
 
 # Working with Backand
 
