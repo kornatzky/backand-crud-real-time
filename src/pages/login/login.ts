@@ -40,6 +40,7 @@ export class LoginPage {
     	data => {
     	    console.log(data);
           this.authenticationDetails = {};
+          this.isLoggedIn = true;
     	},
     	err => {
     		console.log(err);	
